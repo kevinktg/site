@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐣 Perth's Easter Adventures for Little Explorers (Ages 2-5)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    @keyframes flip {
+        0% { transform: rotateY(0); }
+        50% { transform: rotateY(90deg); }
+        100% { transform: rotateY(0); }
+    }
+    @keyframes pop {
+        0% { transform: scale(0.8); opacity: 0; }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes sparkle {
+        0% { opacity: 0; transform: scale(0); }
+        50% { opacity: 1; transform: scale(1.2); }
+        100% { opacity: 0; transform: scale(0); }
+    }
+    .flip-animation {
+        animation: flip 0.6s ease-out;
+    }
+    .pop-in {
+        animation: pop 0.3s ease-out forwards;
+    }
+    .slide-up {
+        animation: slideUp 0.4s ease-out forwards;
+    }
+    .sparkle {
+        position: relative;
+        overflow: hidden;
+    }
+    .sparkle::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: blue;
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8);
+    }
+    .sparkle:hover::after {
+        animation: sparkle 0.6s ease-out;
+    }
+    .font-baloo {
+        font-family: 'Baloo 2', cursive;
+    }
+    .font-comic {
+        font-family: 'Comic Neue', cursive;
+    }
+    .event-icon {
+        font-size: 1.5rem;
+        margin-right: 0.5rem;
+    }
+    .high-contrast {
+        --tw-bg-opacity: 1;
+        background-color: rgb(0 0 0 / var(--tw-bg-opacity)) !important;
+        color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+    }
+    .high-contrast .bg-white {
+        background-color: rgb(0 0 0 / var(--tw-bg-opacity)) !important;
+        color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+        border: 2px solid white !important;
+    }
+    .high-contrast .text-purple-600 {
+        color: rgb(255 255 0 / var(--tw-text-opacity)) !important;
+    }
+    .large-text {
+        font-size: 1.2em;
+    }
+    .large-text .text-sm {
+        font-size: 1em;
+    }
+    .large-text .text-lg {
+        font-size: 1.4em;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen font-baloo">
+  <div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <h1 class="text-4xl md:text-5xl font-bold text-purple-600 mb-2">🐣 Perth's Easter Adventures</h1>
+      <h2 class="text-2xl md:text-3xl text-pink-500">For Little Explorers (Ages 2-5)</h2>
+      <div class="mt-4 flex justify-center space-x-4">
+        <div class="inline-flex items-center bg-yellow-200 px-4 py-2 rounded-full shadow-md">
+          <i class="fas fa-calendar-alt text-yellow-600 mr-2"></i>
+          <span class="text-yellow-800 font-bold">April 6-25, 2025</span>
+        </div>
+        <button id="toggleView" class="inline-flex items-center bg-green-200 hover:bg-green-300 px-4 py-2 rounded-full shadow-md transition">
+          <i class="fas fa-blog text-green-600 mr-2"></i>
+          <span class="text-green-800 font-bold">Switch to Blog View</span>
+        </button>
+      </div>
+      
+      <!-- Accessibility Controls -->
+      <div class="mt-4 flex justify-center space-x-4">
+        <button id="contrastToggle" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full">
+          <i class="fas fa-adjust mr-1"></i> High Contrast
+        </button>
+        <button id="fontToggle" class="text-xs bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded-full">
+          <i class="fas fa-text-height mr-1"></i> Large Text
+        </button>
+      </div>
+    </header>
+
+    <!-- Little Explorer Spotlight -->
+    <section class="bg-white rounded-xl shadow-lg p-6 mt-8">
+      <h3 class="text-xl md:text-2xl font-bold text-purple-600 mb-4">Meet Our Little Explorer!</h3>
+      <div class="flex flex-col items-center md:flex-row md:items-start">
+        <!-- Replace src with your actual image URL or local path -->
+        <img 
+          src="https://huggingface.co/spaces/kevinktg/ifinerary/resolve/main/1.jpeg" 
+          alt="Smiling boy excited for Easter adventures" 
+          class="w-48 h-48 object-cover rounded-full shadow-md border-4 border-pink-300 mb-4 md:mr-6"
+        >
+        <p class="text-gray-700 text-sm md:text-base leading-relaxed">
+          This bright and curious little adventurer is ready to explore Perth’s Easter festivities!
+          Whether it’s dinosaurs at the Zoo, dancing at Woodlupine, or coding with Bee-Bots, 
+          he’s all smiles and can’t wait to share the fun. 
+          <strong>Let’s follow his lead and discover all these family-friendly events!</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- Calendar View -->
+    <div id="calendarView" class="mt-8">
+      <!-- Calendar Grid -->
+      <div class="grid grid-cols-7 gap-2 mb-8">
+        <!-- Empty cells for days before April 6 (Sunday) -->
+        <div class="opacity-0"></div>
+        <div class="opacity-0"></div>
+        <div class="opacity-0"></div>
+        <div class="opacity-0"></div>
+        <div class="opacity-0"></div>
+        
+        <!-- Calendar days will be populated here (April 6-25) -->
+      </div>
+    </div>
+
+    <!-- Blog View (hidden by default) -->
+    <div id="blogView" class="hidden">
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-2xl font-bold text-purple-600 mb-6 border-b-2 border-purple-200 pb-2">Parent's Guide to Easter Activities</h3>
+        <div id="blogPosts" class="space-y-6">
+          <!-- Blog posts will be populated here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Event Detail Modal -->
+    <div id="eventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+      <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto pop-in">
+        <div class="flex justify-between items-center mb-4">
+          <h3 id="modalEventTitle" class="text-2xl font-bold text-purple-600"></h3>
+          <button id="closeModal" class="text-gray-500 hover:text-gray-700 text-xl">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div id="modalEventContent" class="space-y-4">
+          <!-- Content will be populated by JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Events data
+      const events = [
+        {
+          "date": "2025-04-06",
+          "event": "Zoorassic Park at Perth Zoo",
+          "description": "Embark on a prehistoric adventure! Explore life-sized dinosaurs at Perth Zoo. Hear their ROARS and see them MOVE! Great for all ages!",
+          "image_url": "https://perthzoo.wa.gov.au/sites/default/files/styles/whats_on_hero/public/ZoorassicPark_WhatsOnHero.jpg%3Fitok%3Dlau4a-7Q",
+          "age_range": "2-5",
+          "link": "https://perthzoo.wa.gov.au/whats-on/event/zoorassicpark",
+          "type": "dinosaur",
+          "time": "9:00 AM - 5:00 PM",
+          "location": "Perth Zoo"
+        },
+        {
+          "date": "2025-04-06",
+          "event": "Nature Playgroup",
+          "description": "Time to get WILD! Join our nature-based playgroup at Perth City Farm. Explore, discover, and connect with nature. For little adventurers aged 2-6!",
+          "image_url": "https://perthcityfarm.org.au/wp-content/uploads/2023/02/Nature-Playgroup-1080x675.jpg",
+          "age_range": "2-6",
+          "link": "https://perthcityfarm.org.au/event/nature-playgroup/",
+          "type": "playgroup",
+          "time": "10:00 AM - 11:30 AM",
+          "location": "Perth City Farm"
+        },
+        {
+          "date": "2025-04-12",
+          "event": "B Shed Builds LEGO Exhibition",
+          "description": "Build your imagination! A community LEGO exhibition at the WA Maritime Museum. See amazing creations and get inspired!",
+          "image_url": "https://visit.museum.wa.gov.au/-/media/museum/education/learning-resources/early-years/ey-dinosaur-dig-activity-image.jpg%3Fh%3D337%26w%3D600%26rev%3D8b2a1613881843a89924382a761861ca%26hash%3D6619A09429434B38981F11914D2A88F4",
+          "age_range": "All", 
+          "link": "https://visit.museum.wa.gov.au/maritime/2025-04/b-shed-builds-community-lego-exhibition",
+          "type": "lego",
+          "time": "10:00 AM - 4:00 PM",
+          "location": "WA Maritime Museum"
+        },
+        {
+          "date": "2025-04-13",
+          "event": "Kids School Holiday Baking Workshop",
+          "description": "Calling all mini bakers! Create delicious treats at Boss Babes Bakery. Learn to mix, bake, and decorate. YUM!",
+          "image_url": "https://img.evbuc.com/https%253A%252F%252Fcdn.evbuc.com%252Fimages%252F1255280962149%252F1%252Foriginal.20210920-015812%3Fw%3D1000%26auto%3Dformat%252Ccompress%26q%3D75%26sharp%3D10%26rect%3D0%252C63%252C960%252C480%26s%3D5363681691962b62954609641842910a",
+          "age_range": "5+", 
+          "link": "https://www.eventbrite.com.au/e/kids-school-holiday-baking-workshop-tickets-1255280962149",
+          "type": "food",
+          "time": "9:30 AM - 11:00 AM",
+          "location": "Boss Babes Bakery"
+        },
+        {
+          "date": "2025-04-14",
+          "event": "Dino-rama",
+          "description": "ROAR-some fun! Kids' workshop to create their own 3D dinosaur diorama at the Museum of the Great Southern. Bring your imagination to life!",
+          "image_url": "https://visit.museum.wa.gov.au/-/media/museum/education/learning-resources/early-years/ey-dinosaur-dig-activity-image.jpg%3Fh%3D337%26w%3D600%26rev%3D8b2a1613881843a89924382a761861ca%26hash%3D6619A09429434B38981F11914D2A88F4",
+          "age_range": "5-12", 
+          "link": "https://visit.museum.wa.gov.au/greatsouthern/workshop-dino-rama",
+          "type": "dinosaur",
+          "time": "1:00 PM - 3:00 PM",
+          "location": "Museum of the Great Southern"
+        },
+        {
+          "date": "2025-04-15",
+          "event": "Puppet Playtime: Pig The Pug",
+          "description": "OINK-tastic puppet adventure! See the hilarious 'Pig the Pug' story come to life on stage. A show full of giggles and fun!",
+          "image_url": "https://images.scholastic.co.uk/api/resource/file/84129.jpg%3Fw%3D768%26h%3D768%26s%3D8249117311831183",
+          "age_range": "3-5", 
+          "link": "https://www.melvillecity.com.au/things-to-do/events/whats-on/puppet-playtime-pig-the-pug-(1)",
+          "type": "performance",
+          "time": "10:30 AM - 11:15 AM",
+          "location": "Melville Civic Centre"
+        },
+        {
+          "date": "2025-04-17",
+          "event": "Songs & Story Under the Trees",
+          "description": "Let's sing and read! Outdoor storytelling, songs, and activities for children under the trees. A magical morning of fun!",
+          "image_url": "https://southperth.wa.gov.au/getmedia/News-Centre/Library-News/Childrens-Story-Time.jpg%3Fwidth%3D767%26height%3D575%26ext%3D.jpg",
+          "age_range": "0-5", 
+          "link": "https://southperth.wa.gov.au/discover/whats-on/Events/events-detail/2025/04/17/default-calendar/songs---story-under-the-trees",
+          "type": "storytime",
+          "time": "9:30 AM - 10:15 AM",
+          "location": "South Perth Library Gardens"
+        },
+        {
+          "date": "2025-04-17",
+          "event": "Messy Kids Create - Fondant Cookie Creations",
+          "description": "Get creative and make some delicious art! A workshop for kids to decorate cookies with colorful fondant. Let their imaginations run wild!",
+          "image_url": "https://www.google.com/search?q=kids+fondant+cookie+decorating+workshop&tbm=isch#imgrc=jM1Gv9c899y-kM",
+          "age_range": "5+", 
+          "link": "https://www.eventbrite.com.au/e/messy-kids-create-fondant-cookie-creations-registration-1271839218339",
+          "type": "food",
+          "time": "2:00 PM - 3:30 PM",
+          "location": "Creative Kids Studio"
+        },
+        {
+          "date": "2025-04-18",
+          "event": "Fremantle International Street Arts Festival",
+          "description": "WOW the whole family! Fremantle comes alive with amazing street performances from around the world. A spectacle of fun and wonder!",
+          "image_url": "https://www.fremantle.wa.gov.au/sites/default/files/content/page/fremantle_street_arts_fest_2019_hi-res-016.jpg",
+          "age_range": "All", 
+          "link": "https://www.fremantle.wa.gov.au/fisf",
+          "type": "performance",
+          "time": "10:00 AM - 5:00 PM",
+          "location": "Fremantle Town Centre"
+        },
+        {
+          "date": "2025-04-18",
+          "event": "The Kids Big Carnival",
+          "description": "Fun, thrills, and spills! A carnival with exciting rides and entertainment designed just for young children. Get ready for a day of laughter!",
+          "image_url": "https://kidsbigcarnival.com.au/wp-content/uploads/2024/03/KBC-Homepage-Banner-min.jpg",
+          "age_range": "2-12", 
+          "link": "https://kidsbigcarnival.com.au/",
+          "type": "carnival",
+          "time": "9:00 AM - 4:00 PM",
+          "location": "Claremont Showground"
+        },
+        {
+          "date": "2025-04-19",
+          "event": "City of Cockburn Easter Fair",
+          "description": "Hop into Easter fun! A free family event with egg-citing Easter-themed activities for everyone. Don't miss the Easter Bunny!",
+          "image_url": "https://www.destinationperth.com.au/sites/default/files/styles/event_hero/public/event_images/cockburn_easter_fair_supplied_by_city_of_cockburn_0.jpg%3Fitok%3D34Y1F03-",
+          "age_range": "All", 
+          "link": "https://www.destinationperth.com.au/event/cockburn-easter-fair/2922/",
+          "type": "easter",
+          "time": "10:00 AM - 2:00 PM",
+          "location": "Cockburn ARC"
+        },
+        {
+          "date": "2025-04-19",
+          "event": "Toddlers Dance Classes",
+          "description": "Get your little ones grooving! Fun and energetic dance classes for toddlers aged 2-6 at Woodlupine Family Centre. Let them wiggle, giggle, and twirl!",
+          "image_url": "https://allevents.in/perth/toddlers-dance-classes-2-6-years-old/80001399599283",
+          "age_range": "2-6",
+          "link": "https://allevents.in/perth/toddlers-dance-classes-2-6-years-old/80001399599283",
+          "type": "dance",
+          "time": "9:30 AM - 10:15 AM",
+          "location": "Woodlupine Family Centre"
+        },
+        {
+          "date": "2025-04-22",
+          "event": "Busy Bee-Bot Bash",
+          "description": "Bzzz Bzzz! Learn to code with Bee-Bot robots at the library! An interactive and educational session for little coders.",
+          "image_url": "https://southperth.wa.gov.au/getmedia/News-Centre/Library-News/Code-a-Bot-Image.jpg%3Fwidth%3D767%26height%3D575%26ext%3D.jpg",
+          "age_range": "4-9", 
+          "link": "https://southperth.wa.gov.au/discover/whats-on/Events/events-detail/2025/04/22/default-calendar/busy-bee-bot-bash---south-perth-library",
+          "type": "workshop",
+          "time": "10:00 AM - 11:00 AM",
+          "location": "South Perth Library"
+        },
+        {
+          "date": "2025-04-23",
+          "event": "LEGO Day",
+          "description": "Build it BIG! Drop in to the library and unleash your creativity with LEGO. What amazing creations will you make today?",
+          "image_url": "https://southperth.wa.gov.au/getmedia/Whats-On/Library-Events/LEGO-Day-July-2024.jpg%3Fwidth%3D767%26height%3D575%26ext%3D.jpg",
+          "age_range": "All", 
+          "link": "https://southperth.wa.gov.au/discover/whats-on/Events/events-detail/2024/07/08/default-calendar/lego-day---manning-library",
+          "type": "lego",
+          "time": "1:00 PM - 3:00 PM",
+          "location": "Manning Library"
+        },
+        {
+          "date": "2025-04-24",
+          "event": "Songs & Story Time",
+          "description": "Once upon a time... Join us for a morning of magical stories, catchy songs, and creative fun!",
+          "image_url": "https://southperth.wa.gov.au/getmedia/News-Centre/Library-News/Childrens-Story-Time.jpg%3Fwidth%3D767%26height%3D575%26ext%3D.jpg",
+          "age_range": "0-5", 
+          "link": "https://southperth.wa.gov.au/discover/whats-on/Events/events-detail/2025/04/24/default-calendar/songs---story-time---south-perth-library",
+          "type": "storytime",
+          "time": "9:30 AM - 10:15 AM",
+          "location": "South Perth Library"
+        },
+        {
+          "date": "2025-04-25",
+          "event": "Pia's Place at Whiteman Park",
+          "description": "Find a calm and inclusive space for play at Pia's Place. An all-abilities playspace perfect for a relaxing day.",
+          "image_url": "https://whitemanpark.com.au/__data/assets/image/0011/17168/Pias-Place-Playground-Whiteman-Park.jpg",
+          "age_range": "All",
+          "link": "https://whitemanpark.com.au/",
+          "type": "playground",
+          "time": "9:00 AM - 5:00 PM",
+          "location": "Whiteman Park"
+        }
+      ];
+
+      // Blog content
+      const blogPosts = [
+        {
+          "date": "2025-04-06",
+          "title": "Double the Fun: Zoorassic Park & Nature Playgroup",
+          "content": "This Sunday offers two fantastic options for your little ones:<br><br>1. <strong>Zoorassic Park at Perth Zoo</strong> - A prehistoric adventure with life-sized dinosaurs that roar and move! Perfect for dinosaur lovers.<br>2. <strong>Nature Playgroup</strong> - Let your little ones explore and connect with nature in this engaging outdoor playgroup.<br><br>Tips for attending:<br>- Arrive early to avoid crowds<br>- Pack snacks and water<br>- Don't forget sunscreen and hats!",
+          "events": ["2025-04-06"]
+        },
+        {
+          "date": "2025-04-12",
+          "title": "LEGO Exhibition: Building Young Minds",
+          "content": "The B Shed Builds LEGO Exhibition isn't just fun - it's educational! Here's why LEGO play is valuable for kids:<br><br>- Develops fine motor skills<br>- Encourages creativity and problem-solving<br>- Teaches basic engineering concepts<br>- Promotes patience and persistence<br><br>At the exhibition, kids can see amazing creations and get inspired to build their own. It's a great opportunity to spark their imagination!",
+          "events": ["2025-04-12"]
+        },
+        {
+          "date": "2025-04-13",
+          "title": "Little Bakers: Holiday Workshop",
+          "content": "The Kids School Holiday Baking Workshop is perfect for budding chefs:<br><br>- Learn baking basics in a fun environment<br>- Create delicious treats to take home<br>- Develop measuring and following instructions skills<br><br>What to expect:<br>- Aprons provided<br>- All ingredients included<br>- Take-home box for creations<br>- Parent participation encouraged",
+          "events": ["2025-04-13"]
+        },
+        {
+          "date": "2025-04-14",
+          "title": "Dino-rama: Creative Play Workshop",
+          "content": "The Dino-rama workshop combines creativity with prehistoric fun:<br><br>- Create 3D dinosaur dioramas<br>- Learn fun dinosaur facts<br>- Take home a completed project<br><br>This workshop helps develop:<br>- Fine motor skills<br>- Storytelling abilities<br>- Knowledge of prehistoric life<br>- Confidence in creative expression",
+          "events": ["2025-04-14"]
+        },
+        {
+          "date": "2025-04-15",
+          "title": "Puppet Playtime: Social Skills Through Story",
+          "content": "Puppet Playtime: Pig The Pug offers more than just entertainment:<br><br>- Watching performances helps with attention span<br>- Group settings teach sharing space with others<br>- Following storylines develops comprehension<br>- Laughing together builds social connections<br><br>After the show, discuss:<br>- What was their favorite part?<br>- What would they do if they had a pug like Pig?<br>- Can they retell the story in their own words?",
+          "events": ["2025-04-15"]
+        },
+        {
+          "date": "2025-04-17",
+          "title": "Two Terrific Tuesday Options",
+          "content": "Today offers two great activities:<br><br>1. <strong>Songs & Story Under the Trees</strong> (0-5 years)<br>- Short attention span friendly<br>- Interactive elements<br>- Gentle introduction to group activities<br><br>2. <strong>Messy Kids Create - Fondant Cookie Creations</strong> (5+ years)<br>- More complex tasks<br>- Requires finer motor control<br>- Longer duration<br><br>Consider your child's:<br>- Attention span<br>- Skill level<br>- Interest in the activity",
+          "events": ["2025-04-17"]
+        },
+        {
+          "date": "2025-04-18",
+          "title": "Weekend Spectaculars",
+          "content": "Two major events happening today:<br><br>1. <strong>Fremantle International Street Arts Festival</strong><br>- Amazing performances all day<br>- Food stalls and activities<br>- Free entry<br><br>2. <strong>The Kids Big Carnival</strong><br>- Rides designed for young children<br>- Games and entertainment<br>- Safe, enclosed environment<br><br>Tips for attending:<br>- Bring a stroller for little ones<br>- Pack snacks and water<br>- Have a meeting point in case you get separated",
+          "events": ["2025-04-18"]
+        },
+        {
+          "date": "2025-04-19",
+          "title": "Easter Fun at Cockburn Fair",
+          "content": "The City of Cockburn Easter Fair offers so much fun! Here's what to expect:<br><br>- Easter egg hunts (various age groups)<br>- Face painting and crafts<br>- Petting zoo<br>- Live entertainment<br>- Food stalls<br><br>Pro tips:<br>- Bring your own basket for egg hunts<br>- Take photos with the Easter Bunny early to avoid long lines<br>- Check the schedule for special performances",
+          "events": ["2025-04-19"]
+        },
+        {
+          "date": "2025-04-22",
+          "title": "Coding for Little Ones",
+          "content": "The Busy Bee-Bot Bash introduces coding concepts in a playful way:<br><br>- Bee-Bots are simple robots perfect for young children<br>- Teaches sequencing and problem-solving<br>- Introduces basic programming logic<br>- Fun, screen-free technology experience<br><br>At home extensions:<br>- Use arrows drawn on paper to plan routes<br>- Create simple mazes for toys to navigate<br>- Play 'robot' games giving each other commands",
+          "events": ["2025-04-22"]
+        },
+        {
+          "date": "2025-04-23",
+          "title": "LEGO Day: Building Creativity",
+          "content": "LEGO Day at the library is more than just building - it's about:<br><br>- Expressing ideas in 3D form<br>- Collaborative building with others<br>- Storytelling through creations<br>- Developing spatial awareness<br><br>Encourage your child by:<br>- Asking about their creation<br>- Suggesting challenges ('Can you build a bridge?')<br>- Taking photos to remember their designs<br>- Displaying special creations at home",
+          "events": ["2025-04-23"]
+        },
+        {
+          "date": "2025-04-24",
+          "title": "Story Time Magic",
+          "content": "Songs & Story Time highlights why reading matters:<br><br>- Builds vocabulary and language skills<br>- Develops imagination and creativity<br>- Creates bonding time between caregiver and child<br>- Introduces concepts about the world<br><br>Make reading at home more engaging:<br>- Use different voices for characters<br>- Ask predictive questions ('What do you think will happen?')<br>- Act out favorite stories<br>- Visit the library regularly",
+          "events": ["2025-04-24"]
+        },
+        {
+          "date": "2025-04-25",
+          "title": "Pia's Place: Inclusive Play",
+          "content": "Pia's Place at Whiteman Park is designed for children of all abilities:<br><br>- Inclusive equipment for various needs<br>- Quiet spaces for sensory breaks<br>- Wheelchair accessible features<br>- Social opportunities in a supportive environment<br><br>Benefits for all children:<br>- Teaches empathy and understanding<br>- Encourages cooperative play<br>- Provides developmentally appropriate challenges<br>- Beautiful natural setting reduces stress",
+          "events": ["2025-04-25"]
+        }
+      ];
+
+      // DOM Elements
+      const calendarGrid = document.querySelector('#calendarView .grid.grid-cols-7.gap-2.mb-8');
+      const toggleViewBtn = document.getElementById('toggleView');
+      const calendarView = document.getElementById('calendarView');
+      const blogView = document.getElementById('blogView');
+      const blogPostsContainer = document.getElementById('blogPosts');
+      const eventModal = document.getElementById('eventModal');
+      const closeModal = document.getElementById('closeModal');
+      const modalEventTitle = document.getElementById('modalEventTitle');
+      const modalEventContent = document.getElementById('modalEventContent');
+      const contrastToggle = document.getElementById('contrastToggle');
+      const fontToggle = document.getElementById('fontToggle');
+
+      // Initialize the calendar
+      function initCalendar() {
+        renderCalendar();
+        renderBlogPosts();
+      }
+
+      // Render the calendar
+      function renderCalendar() {
+        // Clear previous days
+        calendarGrid.innerHTML = '';
+
+        // Create day elements for April 6-25
+        const startDate = new Date('2025-04-06');
+        const endDate = new Date('2025-04-25');
+        
+        let currentDate = new Date(startDate);
+        while (currentDate <= endDate) {
+          const dayElement = createDayElement(currentDate);
+          calendarGrid.appendChild(dayElement);
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+      }
+
+      // Create a day element
+      function createDayElement(date) {
+        const dayElement = document.createElement('div');
+        dayElement.className = 'bg-white rounded-xl shadow-md overflow-hidden sparkle cursor-pointer transition-all hover:shadow-lg relative';
+        
+        // Get events for this day
+        const eventsForDay = getEventsForDate(date);
+        
+        // Date header
+        const dateHeader = document.createElement('div');
+        dateHeader.className = 'bg-purple-100 text-center py-2 font-bold text-purple-700';
+        dateHeader.textContent = date.toLocaleDateString('en-US', { weekday: 'short' });
+
+        // Day number
+        const dayNumber = document.createElement('div');
+        dayNumber.className = 'text-center py-4 text-3xl font-bold text-purple-600';
+        dayNumber.textContent = date.getDate();
+
+        // Event icon
+        const eventIcon = document.createElement('div');
+        eventIcon.className = 'text-center pb-4 text-3xl';
+        
+        if (eventsForDay.length > 0) {
+          // Use the first event's type for the icon
+          const firstEvent = eventsForDay[0];
+          eventIcon.innerHTML = getEventIcon(firstEvent.type);
+          
+          // Add event count badge if more than one event
+          if (eventsForDay.length > 1) {
+            const badge = document.createElement('span');
+            badge.className = 'absolute top-2 right-2 bg-pink-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center';
+            badge.textContent = eventsForDay.length;
+            dayElement.appendChild(badge);
+          }
+        } else {
+          eventIcon.innerHTML = '<i class="far fa-calendar text-gray-300"></i>';
+        }
+
+        dayElement.appendChild(dateHeader);
+        dayElement.appendChild(dayNumber);
+        dayElement.appendChild(eventIcon);
+
+        // Add click event
+        dayElement.addEventListener('click', () => {
+          showDayEvents(date);
+          // Play flip animation
+          dayElement.classList.add('flip-animation');
+          setTimeout(() => {
+            dayElement.classList.remove('flip-animation');
+          }, 600);
+        });
+
+        return dayElement;
+      }
+
+      // Get icon for event type
+      function getEventIcon(type) {
+        switch(type) {
+          case 'dinosaur': return '<i class="fas fa-dragon text-green-500"></i>';
+          case 'playgroup': return '<i class="fas fa-child text-blue-500"></i>';
+          case 'lego': return '<i class="fas fa-cubes text-red-500"></i>';
+          case 'food': return '<i class="fas fa-cookie-bite text-yellow-500"></i>';
+          case 'performance': return '<i class="fas fa-theater-masks text-purple-500"></i>';
+          case 'storytime': return '<i class="fas fa-book-open text-indigo-500"></i>';
+          case 'carnival': return '<i class="fas fa-ticket-alt text-pink-500"></i>';
+          case 'easter': return '<i class="fas fa-egg text-yellow-300"></i>';
+          case 'dance': return '<i class="fas fa-music text-teal-500"></i>';
+          case 'workshop': return '<i class="fas fa-paint-brush text-orange-500"></i>';
+          case 'playground': return '<i class="fas fa-slide text-cyan-500"></i>';
+          default: return '<i class="fas fa-calendar-day text-gray-400"></i>';
+        }
+      }
+
+      // Get events for a specific date
+      function getEventsForDate(date) {
+        const dateStr = date.toISOString().split('T')[0];
+        return events.filter(event => event.date === dateStr);
+      }
+
+      // Show events for a specific day
+      function showDayEvents(date) {
+        const dateStr = date.toISOString().split('T')[0];
+        const eventsForDay = getEventsForDate(date);
+
+        if (eventsForDay.length === 0) return;
+
+        // Set modal title with date
+        modalEventTitle.textContent = date.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+        // Create content
+        let contentHTML = '';
+        
+        eventsForDay.forEach(event => {
+          contentHTML += `
+            <div class="bg-purple-50 rounded-lg p-4 mb-4 slide-up" style="animation-delay: ${eventsForDay.indexOf(event) * 0.1}s">
+              <div class="flex items-start mb-3">
+                <div class="text-3xl mr-3">
+                  ${getEventIcon(event.type)}
+                </div>
+                <div>
+                  <h4 class="text-lg font-bold text-purple-700">${event.event}</h4>
+                  <p class="text-sm text-gray-600">${event.time} @ ${event.location}</p>
+                </div>
+              </div>
+              <p class="text-gray-700 text-sm mb-3">${event.description}</p>
+              <div class="flex justify-between items-center">
+                <div class="text-sm">
+                  <span class="font-medium">Age:</span> ${event.age_range} years
+                </div>
+                <a href="${event.link}" target="_blank" class="text-sm bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-lg">
+                  Book Now <i class="fas fa-external-link-alt ml-1"></i>
+                </a>
+              </div>
+            </div>
+          `;
+        });
+
+        modalEventContent.innerHTML = contentHTML;
+        eventModal.classList.remove('hidden');
+      }
+
+      // Render blog posts
+      function renderBlogPosts() {
+        // Clear previous content
+        blogPostsContainer.innerHTML = '';
+
+        // Add posts
+        blogPosts.forEach(post => {
+          const postElement = document.createElement('div');
+          postElement.className = 'blog-post slide-up';
+          postElement.style.animationDelay = `${blogPosts.indexOf(post) * 0.1}s`;
+
+          // Get associated events
+          const postEvents = events.filter(event => post.events.includes(event.date));
+          
+          // Create events HTML
+          let eventsHTML = '';
+          postEvents.forEach(event => {
+            eventsHTML += `
+              <div class="bg-purple-50 rounded-lg p-3 mb-3">
+                <div class="flex items-center mb-2">
+                  <div class="text-2xl mr-2">
+                    ${getEventIcon(event.type)}
+                  </div>
+                  <h5 class="font-bold text-purple-700">${event.event}</h5>
+                </div>
+                <div class="text-sm text-gray-600 mb-2">
+                  <div><i class="fas fa-clock mr-1"></i> ${event.time}</div>
+                  <div><i class="fas fa-map-marker-alt mr-1"></i> ${event.location}</div>
+                </div>
+                <a href="${event.link}" target="_blank" class="inline-block text-sm bg-pink-500 hover:bg-pink-600 text-white px-3 py-1 rounded-lg">
+                  More Info <i class="fas fa-external-link-alt ml-1"></i>
+                </a>
+              </div>
+            `;
+          });
+
+          postElement.innerHTML = `
+            <h4 class="text-lg font-bold text-purple-600 mb-1">${new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}</h4>
+            <h5 class="text-xl font-bold text-gray-800 mb-3">${post.title}</h5>
+            <div class="text-gray-600 mb-4">${post.content}</div>
+            ${eventsHTML}
+            <div class="border-b border-purple-100 my-4"></div>
+          `;
+
+          blogPostsContainer.appendChild(postElement);
+        });
+      }
+
+      // Toggle between calendar and blog views
+      toggleViewBtn.addEventListener('click', () => {
+        if (calendarView.classList.contains('hidden')) {
+          // Switch to calendar view
+          calendarView.classList.remove('hidden');
+          blogView.classList.add('hidden');
+          toggleViewBtn.innerHTML = '<i class="fas fa-blog text-green-600 mr-2"></i><span class="text-green-800 font-bold">Switch to Blog View</span>';
+        } else {
+          // Switch to blog view
+          calendarView.classList.add('hidden');
+          blogView.classList.remove('hidden');
+          toggleViewBtn.innerHTML = '<i class="fas fa-calendar-alt text-green-600 mr-2"></i><span class="text-green-800 font-bold">Switch to Calendar View</span>';
+        }
+      });
+
+      // Close modal
+      closeModal.addEventListener('click', () => {
+        eventModal.classList.add('hidden');
+      });
+
+      // Close modal when clicking outside
+      eventModal.addEventListener('click', (e) => {
+        if (e.target === eventModal) {
+          eventModal.classList.add('hidden');
+        }
+      });
+
+      // Toggle high contrast mode
+      contrastToggle.addEventListener('click', () => {
+        document.body.classList.toggle('high-contrast');
+      });
+
+      // Toggle large text mode
+      fontToggle.addEventListener('click', () => {
+        document.body.classList.toggle('large-text');
+      });
+
+      // Initialize
+      initCalendar();
+    });
+  </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=kevinktg/ifinerary" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
+</html>
