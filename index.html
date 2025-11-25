@@ -62,7 +62,7 @@
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- HEADER --- */
-        header { padding: 60px 0 40px; text-align: center; }
+        header { padding: 100px 0 60px; text-align: center; }
         .header-logo {
             margin-bottom: 30px;
             animation: logoFloat 10s ease-in-out infinite;
@@ -89,7 +89,7 @@
             border: 1px solid rgba(212, 175, 55, 0.3); text-transform: uppercase; margin-bottom: 20px;
         }
         header h1 {
-            font-size: 3.5rem; line-height: 1.1; margin-bottom: 15px;
+            font-size: 4.5rem; line-height: 1.1; margin-bottom: 25px;
             background: linear-gradient(135deg, #fff 0%, #d4af37 50%, #fff 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
@@ -102,7 +102,20 @@
             0% { background-position: 0% center; }
             100% { background-position: 200% center; }
         }
-        header p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; font-weight: 300; }
+        header p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; font-weight: 300; }
+        .header-video {
+            max-width: 900px;
+            margin: 40px auto 0;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .header-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
 
         /* --- NAVIGATION SWITCHER --- */
         .nav-switcher {
@@ -592,6 +605,13 @@
             <div class="badge"><i class="ph-fill ph-database"></i> Official Backend Design</div>
             <h1>Kismet OS <span>Rollout</span></h1>
             <p>This is the official backend design.</p>
+            <div class="header-video">
+                <video controls playsinline>
+                    <source src="assets/overview.mp4" type="video/mp4">
+                    <source src="assets/overview.webm" type="video/webm">
+                    Your browser does not support the video element.
+                </video>
+            </div>
         </header>
 
         <!-- NAV SWITCHER -->
