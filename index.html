@@ -1581,6 +1581,52 @@ Create a comprehensive strategy including:
             },
             options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{display:false}}, scales:{y:{beginAtZero:true, ticks:{color:'#94a3b8'}}, x:{grid:{display:false}, ticks:{color:'#94a3b8'}}} }
         });
+
+        // --- AUDIO PLAYER ---
+        const audioOverview = document.getElementById('audioOverview');
+        const audioToggle = document.getElementById('audioToggle');
+        const audioIcon = document.getElementById('audioIcon');
+        const audioTime = document.getElementById('audioTime');
+
+        function formatTime(seconds) {
+            if (!seconds || isNaN(seconds)) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function updateAudioTime() {
+            if (audioOverview && audioOverview.duration) {
+                audioTime.textContent = formatTime(audioOverview.currentTime);
+            }
+        }
+
+        function toggleAudio() {
+            if (!audioOverview) return;
+            if (audioOverview.paused) {
+                audioOverview.play();
+                audioIcon.className = 'ph-fill ph-pause';
+                audioToggle.classList.add('playing');
+            } else {
+                audioOverview.pause();
+                audioIcon.className = 'ph-fill ph-play';
+                audioToggle.classList.remove('playing');
+            }
+        }
+
+        if (audioOverview) {
+            audioOverview.addEventListener('timeupdate', updateAudioTime);
+            audioOverview.addEventListener('loadedmetadata', () => {
+                if (audioOverview.duration) {
+                    audioTime.textContent = formatTime(audioOverview.duration);
+                }
+            });
+            audioOverview.addEventListener('ended', () => {
+                audioIcon.className = 'ph-fill ph-play';
+                audioToggle.classList.remove('playing');
+                audioOverview.currentTime = 0;
+            });
+        }
     </script>
 </body>
 </html>
