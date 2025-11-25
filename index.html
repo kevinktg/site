@@ -964,7 +964,7 @@
         <!-- Minimal Video Overview -->
         <div class="media-overview">
             <div class="video-preview">
-                <video id="videoPreview" muted loop>
+                <video id="videoPreview" muted loop playsinline>
                     <source src="assets/overview.mp4" type="video/mp4">
                     <source src="assets/overview.webm" type="video/webm">
                 </video>
@@ -975,7 +975,7 @@
                 </button>
                 <span class="media-time" id="videoTime">0:00</span>
             </div>
-            <video id="videoOverview" preload="metadata">
+            <video id="videoOverview" preload="metadata" playsinline>
                 <!-- Add your video file URL here -->
                 <source src="assets/overview.mp4" type="video/mp4">
                 <source src="assets/overview.webm" type="video/webm">
@@ -1643,54 +1643,104 @@ Create a comprehensive strategy including:
         function toggleVideo() {
             if (!videoOverview || !videoIcon || !videoToggle) return;
             
-            const playPromise = videoOverview.paused ? videoOverview.play() : Promise.resolve();
-            
-            playPromise.then(() => {
-                if (!videoOverview.paused) {
-                    videoIcon.className = 'ph-fill ph-pause';
-                    videoToggle.classList.add('playing');
-                    if (videoPreview) {
-                        videoPreview.currentTime = videoOverview.currentTime;
-                        videoPreview.play().catch(() => {}); // Ignore preview errors
+            try {
+                if (videoOverview.paused) {
+                    // Try to play
+                    const playPromise = videoOverview.play();
+                    
+                    if (playPromise !== undefined) {
+                        playPromise.then(() => {
+                            videoIcon.className = 'ph-fill ph-pause';
+                            videoToggle.classList.add('playing');
+                            if (videoPreview) {
+                                try {
+                                    videoPreview.currentTime = videoOverview.currentTime;
+                                    videoPreview.play().catch(() => {}); // Ignore preview errors
+                                } catch (e) {}
+                            }
+                        }).catch(error => {
+                            console.log('Video play failed:', error);
+                            videoIcon.className = 'ph-fill ph-play';
+                            videoToggle.classList.remove('playing');
+                            // Show error to user
+                            if (videoTime) videoTime.textContent = 'Error';
+                        });
+                    } else {
+                        // Fallback for older browsers
+                        videoIcon.className = 'ph-fill ph-pause';
+                        videoToggle.classList.add('playing');
                     }
                 } else {
+                    // Pause
+                    videoOverview.pause();
                     videoIcon.className = 'ph-fill ph-play';
                     videoToggle.classList.remove('playing');
                     if (videoPreview) {
-                        videoPreview.pause();
+                        try {
+                            videoPreview.pause();
+                        } catch (e) {}
                     }
                 }
-            }).catch(error => {
-                console.log('Video play failed:', error);
-                videoIcon.className = 'ph-fill ph-play';
-                videoToggle.classList.remove('playing');
-            });
+            } catch (error) {
+                console.error('Video toggle error:', error);
+                if (videoTime) videoTime.textContent = 'Error';
+            }
         }
 
         if (videoOverview) {
+            // Load video metadata
+            videoOverview.load();
+            
             videoOverview.addEventListener('timeupdate', updateVideoTime);
+            
             videoOverview.addEventListener('loadedmetadata', () => {
                 if (videoOverview.duration && videoTime) {
                     videoTime.textContent = formatTime(videoOverview.duration);
                 }
             });
-            videoOverview.addEventListener('error', (e) => {
-                console.log('Video error:', e);
-                if (videoTime) videoTime.textContent = 'N/A';
+            
+            videoOverview.addEventListener('loadeddata', () => {
+                if (videoTime && !videoOverview.duration) {
+                    videoTime.textContent = 'Ready';
+                }
             });
+            
+            videoOverview.addEventListener('error', (e) => {
+                console.log('Video error:', videoOverview.error);
+                if (videoTime) {
+                    const error = videoOverview.error;
+                    if (error) {
+                        if (error.code === 4) {
+                            videoTime.textContent = 'Format?';
+                        } else {
+                            videoTime.textContent = 'Error';
+                        }
+                    } else {
+                        videoTime.textContent = 'N/A';
+                    }
+                }
+            });
+            
             videoOverview.addEventListener('ended', () => {
                 if (videoIcon) videoIcon.className = 'ph-fill ph-play';
                 if (videoToggle) videoToggle.classList.remove('playing');
                 videoOverview.currentTime = 0;
-                if (videoPreview) videoPreview.currentTime = 0;
+                if (videoPreview) {
+                    try {
+                        videoPreview.currentTime = 0;
+                        videoPreview.pause();
+                    } catch (e) {}
+                }
             });
 
             // Sync preview with main video (only if preview exists)
             if (videoPreview) {
                 videoOverview.addEventListener('play', () => {
                     try {
-                        videoPreview.currentTime = videoOverview.currentTime;
-                        videoPreview.play().catch(() => {}); // Ignore preview errors
+                        if (videoPreview.readyState >= 2) {
+                            videoPreview.currentTime = videoOverview.currentTime;
+                            videoPreview.play().catch(() => {}); // Ignore preview errors
+                        }
                     } catch (e) {}
                 });
                 videoOverview.addEventListener('pause', () => {
