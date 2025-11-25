@@ -1506,13 +1506,21 @@ Create a comprehensive strategy including:
 
         function calculateStack() {
             const btn = document.getElementById('calcBtn');
-            btn.classList.add('loading'); btn.innerHTML = 'Analyzing...';
+            if (!btn) return;
+            
+            btn.classList.add('loading'); 
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Analyzing...';
             
             setTimeout(() => {
-                document.getElementById('assessment-panel').style.display = 'none';
-                document.getElementById('results-panel').classList.remove('hidden');
-                document.getElementById('results-panel').classList.add('fade-in');
-            }, 800);
+                const resultsPanel = document.getElementById('results-panel');
+                if (resultsPanel) {
+                    resultsPanel.classList.remove('hidden');
+                    resultsPanel.classList.add('fade-in');
+                }
+                btn.classList.remove('loading');
+                btn.innerHTML = originalText;
+            }, 1500);
         }
 
         // --- WORKFLOW LOGIC ---
@@ -1627,57 +1635,71 @@ Create a comprehensive strategy including:
         }
 
         function updateVideoTime() {
-            if (videoOverview && videoOverview.duration) {
+            if (videoOverview && videoOverview.duration && videoTime) {
                 videoTime.textContent = formatTime(videoOverview.currentTime);
             }
         }
 
         function toggleVideo() {
-            if (!videoOverview) return;
-            if (videoOverview.paused) {
-                videoOverview.play();
-                videoPreview.play();
-                videoIcon.className = 'ph-fill ph-pause';
-                videoToggle.classList.add('playing');
-            } else {
-                videoOverview.pause();
-                videoPreview.pause();
+            if (!videoOverview || !videoIcon || !videoToggle) return;
+            
+            const playPromise = videoOverview.paused ? videoOverview.play() : Promise.resolve();
+            
+            playPromise.then(() => {
+                if (!videoOverview.paused) {
+                    videoIcon.className = 'ph-fill ph-pause';
+                    videoToggle.classList.add('playing');
+                    if (videoPreview) {
+                        videoPreview.currentTime = videoOverview.currentTime;
+                        videoPreview.play().catch(() => {}); // Ignore preview errors
+                    }
+                } else {
+                    videoIcon.className = 'ph-fill ph-play';
+                    videoToggle.classList.remove('playing');
+                    if (videoPreview) {
+                        videoPreview.pause();
+                    }
+                }
+            }).catch(error => {
+                console.log('Video play failed:', error);
                 videoIcon.className = 'ph-fill ph-play';
                 videoToggle.classList.remove('playing');
-            }
+            });
         }
 
         if (videoOverview) {
             videoOverview.addEventListener('timeupdate', updateVideoTime);
             videoOverview.addEventListener('loadedmetadata', () => {
-                if (videoOverview.duration) {
+                if (videoOverview.duration && videoTime) {
                     videoTime.textContent = formatTime(videoOverview.duration);
                 }
             });
+            videoOverview.addEventListener('error', (e) => {
+                console.log('Video error:', e);
+                if (videoTime) videoTime.textContent = 'N/A';
+            });
             videoOverview.addEventListener('ended', () => {
-                videoIcon.className = 'ph-fill ph-play';
-                videoToggle.classList.remove('playing');
+                if (videoIcon) videoIcon.className = 'ph-fill ph-play';
+                if (videoToggle) videoToggle.classList.remove('playing');
                 videoOverview.currentTime = 0;
-                videoPreview.currentTime = 0;
+                if (videoPreview) videoPreview.currentTime = 0;
             });
 
-            // Sync preview with main video
-            videoOverview.addEventListener('play', () => {
-                if (videoPreview) {
-                    videoPreview.currentTime = videoOverview.currentTime;
-                    videoPreview.play();
-                }
-            });
-            videoOverview.addEventListener('pause', () => {
-                if (videoPreview) videoPreview.pause();
-            });
-            videoOverview.addEventListener('timeupdate', () => {
-                if (videoPreview && !videoPreview.paused) {
-                    videoPreview.currentTime = videoOverview.currentTime;
-                }
-            });
+            // Sync preview with main video (only if preview exists)
+            if (videoPreview) {
+                videoOverview.addEventListener('play', () => {
+                    try {
+                        videoPreview.currentTime = videoOverview.currentTime;
+                        videoPreview.play().catch(() => {}); // Ignore preview errors
+                    } catch (e) {}
+                });
+                videoOverview.addEventListener('pause', () => {
+                    try {
+                        videoPreview.pause();
+                    } catch (e) {}
+                });
+            }
         }
     </script>
 </body>
-</html>
 </html>
